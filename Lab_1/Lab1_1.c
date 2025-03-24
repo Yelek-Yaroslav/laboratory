@@ -13,12 +13,12 @@ int main() {
     double geo_mean_odd;
     int max_val, max_index;
 
-    for (int i = 0; i < N; i++) {
+    for (int i = 0; i < N; i+=1) {
         printf("Enter element %d: ", i + 1);
         scanf("%d", &MAS[i]);
     }
 
-    for (int i = 0; i < N; i++) {
+    for (int i = 0; i < N; i+=1) {
         if (MAS[i] % 2 == 0) { 
             sum_even += MAS[i];
             count_even++;
