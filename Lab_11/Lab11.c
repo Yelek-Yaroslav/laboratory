@@ -43,7 +43,6 @@ float average_positive(float arr[], int n) {
             count++;
         }
     }
-
     if (count == 0)
         return 0;
 
