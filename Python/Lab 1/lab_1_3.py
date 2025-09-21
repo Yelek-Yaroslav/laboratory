@@ -1,4 +1,4 @@
-N = int(input("Enter N (1 < N < 9): "))
+N = int(input("Введіть N (1 < N < 9): "))
 
 if N <= 1 or N >= 9:
     print("N повинно бути в діапазоні 1 < N < 9")
