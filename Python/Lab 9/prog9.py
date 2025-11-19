@@ -60,20 +60,24 @@ def main():
 
     try:
         year_index = header.index("2016")
+        country_index = header.index("Country Name")
     except ValueError:
         print("Не знайдено стовпець з даними за 2016 рік.")
         return
 
     filtered_data = []
+
     for row in data:
         try:
             value = float(row[year_index])
             if value > threshold:
-                filtered_data.append(row)
+                filtered_data.append([row[country_index], row[year_index]])
         except (ValueError, IndexError):
             continue
 
-    write_csv_file(output_file, header, filtered_data)
+    new_header = ["Country Name", "2016"]
+
+    write_csv_file(output_file, new_header, filtered_data)
     print(f"Знайдено {len(filtered_data)} країн з показником > {threshold}")
 
 
