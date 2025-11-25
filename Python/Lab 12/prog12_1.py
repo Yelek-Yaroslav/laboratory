@@ -33,12 +33,12 @@ class RoundButton:
 class Calculator(tk.Frame):
     def __init__(self, root):
         super().__init__(root, bg="#000000")
-        self.formula = "0"
+        self.formula = ""
         self.error_flag = False
         self.create_widgets()
 
     def create_widgets(self):
-        self.display_var = tk.StringVar(value=self.formula)
+        self.display_var = tk.StringVar(value="0")
         self.display = tk.Label(self, textvariable=self.display_var, anchor="e",
                                 bg="#000000", fg="white", font=("Helvetica", 25, "bold"))
         self.display.pack(side="top", fill="x", padx=10, pady=20)
@@ -87,7 +87,9 @@ class Calculator(tk.Frame):
                 if "." not in last_number:
                     self.formula += "."
         elif key in operators:
-            if self.formula == "" and key != "-":
+            if self.formula == "":
+                if key == "-":
+                    self.formula = "-"
                 return
             if self.formula[-1:] in operators:
                 self.formula = self.formula[:-1] + key
@@ -95,24 +97,30 @@ class Calculator(tk.Frame):
                 self.formula += key
         elif key == "%":
             try:
-                self.formula = str(eval(self.formula)/100)
+                result = eval(self.formula)
+                result /= 100
+                if isinstance(result, float):
+                    result = round(result, 10)
+                self.formula = str(result)
             except:
                 self.formula = "Помилка"
                 self.error_flag = True
         elif key == "=":
             try:
-                self.formula = str(eval(self.formula))
+                result = eval(self.formula)
+                if isinstance(result, float):
+                    result = round(result, 10)
+                self.formula = str(result)
             except:
                 self.formula = "Помилка"
                 self.error_flag = True
         else:
-            if self.formula == "0":
-                self.formula = ""
             self.formula += key
 
         if self.formula == "":
-            self.formula = "0"
-        self.display_var.set(self.formula)
+            self.display_var.set("0")
+        else:
+            self.display_var.set(self.formula)
 
     def get_last_number(self):
         operators = "+-*/"
